@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard - AI Interview Platform{% endblock %}
+
+{% block content %}
+<div class="page-card rounded-4 p-5 mb-4">
+    <div class="d-flex flex-column flex-md-row align-items-center justify-content-between gap-4">
+        <div>
+            <h1 class="display-6 mb-2">Welcome, {{ request.user.username }}</h1>
+            <p class="text-muted mb-0">Ready to sharpen your interview skills with AI-powered practice?</p>
+        </div>
+        <div class="d-flex gap-2 flex-wrap">
+            <a class="btn btn-primary btn-lg" href="{% url 'practice_section' category_slug='aptitude' %}">Section 1: Aptitude</a>
+            <a class="btn btn-primary btn-lg" href="{% url 'practice_section' category_slug='technical' %}">Section 2: Technical</a>
+            <a class="btn btn-primary btn-lg" href="{% url 'practice_section' category_slug='hr' %}">Section 3: HR</a>
+            <a class="btn btn-outline-light btn-lg" href="{% url 'accounts:logout' %}">Logout</a>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-md-6">
+        <div class="rounded-4 p-4 h-100" style="background: rgba(15, 23, 42, 0.9); border: 1px solid rgba(148, 163, 184, 0.14);">
+            <h4>Your Performance</h4>
+            <p class="text-muted">Get instant feedback and track your answers over each session to identify your strengths.</p>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="rounded-4 p-4 h-100" style="background: rgba(15, 23, 42, 0.9); border: 1px solid rgba(148, 163, 184, 0.14);">
+            <h4>Practice Smarter</h4>
+            <p class="text-muted">Use targeted practice sessions, categorized questions, and review completed sessions from your dashboard.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+

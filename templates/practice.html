@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+
+{% block title %}Practice - AI Interview Platform{% endblock %}
+
+{% block content %}
+<div class="page-card rounded-4 p-4 mx-auto" style="max-width: 900px;">
+    <div class="d-flex justify-content-between align-items-center border-bottom border-secondary pb-3 mb-4">
+        <div>
+            <h2 class="h4 mb-1">Interview Practice</h2>
+            <p class="text-muted mb-0">Answer each question and move to the next one.</p>
+        </div>
+        <a class="btn btn-outline-light" href="{% url 'dashboard' %}">Back to Dashboard</a>
+    </div>
+
+    <div class="mb-4">
+        <div class="d-flex justify-content-between align-items-start">
+            <div>
+                <h5 class="fw-bold">{{ question.question_text }}</h5>
+                {% if category_name %}
+                    <small class="text-muted">Section: {{ category_name }}</small>
+                {% endif %}
+            </div>
+            <div class="text-end">
+                <div><small class="text-muted">Section time left:</small></div>
+                <div id="section-timer" class="fw-bold">{% if section_remaining %}{{ section_remaining }}{% else %}-{% endif %}</div>
+                <div class="mt-2"><small class="text-muted">Overall time left:</small></div>
+                <div id="overall-timer" class="fw-bold">{% if overall_remaining %}{{ overall_remaining }}{% else %}-{% endif %}</div>
+            </div>
+        </div>
+    </div>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        {% if question.question_type == "MCQ" %}
+            <div class="row g-3">
+                <div class="col-12">
+                    <label class="option-card rounded-3 d-flex align-items-center p-3" for="answer-a">
+                        <input id="answer-a" class="form-check-input me-3" type="radio" name="answer" value="A" required>
+                        <span>{{ question.option_a }}</span>
+                    </label>
+                </div>
+                <div class="col-12">
+                    <label class="option-card rounded-3 d-flex align-items-center p-3" for="answer-b">
+                        <input id="answer-b" class="form-check-input me-3" type="radio" name="answer" value="B">
+                        <span>{{ question.option_b }}</span>
+                    </label>
+                </div>
+                <div class="col-12">
+                    <label class="option-card rounded-3 d-flex align-items-center p-3" for="answer-c">
+                        <input id="answer-c" class="form-check-input me-3" type="radio" name="answer" value="C">
+                        <span>{{ question.option_c }}</span>
+                    </label>
+                </div>
+                <div class="col-12">
+                    <label class="option-card rounded-3 d-flex align-items-center p-3" for="answer-d">
+                        <input id="answer-d" class="form-check-input me-3" type="radio" name="answer" value="D">
+                        <span>{{ question.option_d }}</span>
+                    </label>
+                </div>
+            </div>
+        {% else %}
+            <div class="mb-3">
+                <textarea id="text-answer" class="form-control" rows="6" name="answer" placeholder="Type your answer here..." required style="background:#0b1220;color:#e2e8f0;border-color:rgba(148,163,184,0.12);"></textarea>
+            </div>
+        {% endif %}
+
+        <button class="btn btn-success btn-lg mt-3">Submit Answer</button>
+    </form>
+</div>
+<script>
+// Countdown timers (section + overall). Values passed in seconds in template context.
+function startCountdown(id, seconds, onExpire) {
+    const el = document.getElementById(id);
+    if (!el || seconds === null || seconds === undefined) return;
+    let s = parseInt(seconds);
+    function formatTime(sec){
+        const m = Math.floor(sec/60);
+        const s2 = sec%60;
+        return `${m}:${s2.toString().padStart(2,'0')}`;
+    }
+    el.textContent = formatTime(s);
+    const timer = setInterval(()=>{
+        s -= 1;
+        if (s <= 0) {
+            el.textContent = '0:00';
+            clearInterval(timer);
+            onExpire();
+            return;
+        }
+        el.textContent = formatTime(s);
+    },1000);
+    return timer;
+}
+
+document.addEventListener('DOMContentLoaded', function(){
+    const sectionSecsRaw = '{{ section_remaining|default:"" }}';
+    const overallSecsRaw = '{{ overall_remaining|default:"" }}';
+    const sectionSecs = sectionSecsRaw === '' ? null : parseInt(sectionSecsRaw);
+    const overallSecs = overallSecsRaw === '' ? null : parseInt(overallSecsRaw);
+    // when section expires, auto-submit the form
+    if (sectionSecs && sectionSecs > 0) {
+        startCountdown('section-timer', sectionSecs, function(){
+            const form = document.querySelector('form');
+            if (form) form.submit();
+        });
+    }
+    // when overall expires, call end endpoint
+    if (overallSecs && overallSecs > 0) {
+        startCountdown('overall-timer', overallSecs, function(){
+            window.location.href = "{% url 'end_interview' %}";
+        });
+    }
+});
+</script>
+{% endblock %}
+  

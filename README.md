@@ -9,12 +9,19 @@ A Django-based web application for practicing interview questions, tracking sess
 - View results and feedback
 
 ## Project Structure
-- accounts/: user authentication and account-related views
-- feedback/: feedback handling
-- practice/: practice session logic
-- questions/: question models and sample data
-- templates/: HTML templates for the app
-- interview_prep/: Django project settings and URLs   
+```text
+
+interview_prep/
+├── accounts/           # User authentication and account management
+├── feedback/           # Feedback handling and related logic
+├── practice/           # Interview practice sessions and user progress
+├── questions/          # Question models, views, and sample data
+├── templates/          # HTML templates for the user interface
+├── interview_prep/     # Django project settings and URL configuration
+├── manage.py           # Django management entry point
+├── db.sqlite3          # Local SQLite database
+└── README.md           # Project documentation
+```
 
 ## Requirements
 - Python 3.10+

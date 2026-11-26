@@ -3,32 +3,196 @@
 {% block title %}AI Interview Preparation{% endblock %}
 
 {% block content %}
-<div class="page-card rounded-4 p-5 text-center mx-auto" style="max-width: 900px;">
-    <h1 class="display-5 fw-bold mb-3">AI Interview Preparation</h1>
-    <p class="lead text-muted mb-4">Practice interview questions, receive feedback, and track your results with a smart prep workflow.</p>
+
+<style>
+    .hero-section {
+        max-width: 1100px;
+        margin: 45px auto;
+        padding: 65px 35px;
+        background: linear-gradient(135deg, #111827, #0b1725);
+        border: 1px solid rgba(16, 185, 129, 0.2);
+        border-radius: 25px;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+
+    .hero-badge {
+        display: inline-block;
+        padding: 8px 18px;
+        border-radius: 30px;
+        color: #34d399;
+        background: rgba(16,185,129,0.1);
+        border: 1px solid rgba(16,185,129,0.3);
+        font-size: 13px;
+        margin-bottom: 25px;
+    }
+
+    .hero-title {
+        color: #f8fafc;
+        font-size: clamp(35px, 5vw, 55px);
+        font-weight: 800;
+        line-height: 1.2;
+    }
+
+    .hero-title span {
+        color: #10b981;
+    }
+
+    .hero-description {
+        color: #94a3b8;
+        font-size: 18px;
+        max-width: 650px;
+        margin: 20px auto 30px;
+        line-height: 1.8;
+    }
+
+    .btn-start {
+        background: #10b981;
+        color: #04130e;
+        border: none;
+        padding: 13px 30px;
+        font-weight: 700;
+        border-radius: 10px;
+        transition: 0.3s;
+    }
+
+    .btn-start:hover {
+        background: #34d399;
+        color: #04130e;
+        transform: translateY(-3px);
+    }
+
+    .btn-register {
+        border: 1px solid #475569;
+        color: white;
+        padding: 13px 30px;
+        border-radius: 10px;
+        transition: 0.3s;
+    }
+
+    .btn-register:hover {
+        background: #1e293b;
+        color: #34d399;
+        border-color: #10b981;
+    }
+
+    .feature-card {
+        height: 100%;
+        padding: 28px 22px;
+        background: #111c2e;
+        border: 1px solid #263449;
+        border-radius: 18px;
+        transition: 0.3s ease;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-8px);
+        border-color: #10b981;
+        box-shadow: 0 12px 30px rgba(16,185,129,0.1);
+    }
+
+    .feature-icon {
+        font-size: 30px;
+        margin-bottom: 18px;
+    }
+
+    .feature-card h5 {
+        color: #f8fafc;
+        font-weight: 700;
+        margin-bottom: 12px;
+    }
+
+    .feature-card p {
+        color: #94a3b8;
+        line-height: 1.7;
+        margin-bottom: 0;
+    }
+
+    .hero-footer {
+        color: #64748b;
+        font-size: 13px;
+        margin-top: 35px;
+    }
+
+    @media (max-width: 576px) {
+        .hero-section {
+            margin: 20px 10px;
+            padding: 45px 20px;
+        }
+    }
+</style>
+
+<div class="hero-section text-center">
+
+    <div class="hero-badge">
+        ✦ SMART INTERVIEW PRACTICE
+    </div>
+
+    <h1 class="hero-title">
+        Prepare Better.<br>
+        <span>Perform Better.</span>
+    </h1>
+
+    <p class="hero-description">
+        Take your interview preparation to the next level.
+        Practice questions, improve your skills, and track
+        your preparation journey in one place.
+    </p>
+
     <div class="d-flex flex-column flex-sm-row justify-content-center gap-3 mb-5">
-        <a class="btn btn-primary btn-lg" href="{% url 'accounts:login' %}">Login</a>
-        <a class="btn btn-outline-light btn-lg" href="{% url 'accounts:register' %}">Register</a>
+
+        <a href="{% url 'accounts:login' %}"
+           class="btn btn-start">
+            Get Started →
+        </a>
+
+        <a href="{% url 'accounts:register' %}"
+           class="btn btn-register">
+            Create Account
+        </a>
+
     </div>
-    <div class="row g-4">
+
+    <div class="row g-4 text-center">
+
         <div class="col-md-4">
-            <div class="p-4 rounded-4" style="background: rgba(15, 23, 42, 0.9); border: 1px solid rgba(148, 163, 184, 0.14);">
-                <h5 class="text-white">Practice</h5>
-                <p class="text-muted">Answer selected interview questions in multiple formats.</p>
+            <div class="feature-card">
+                <div class="feature-icon">💻</div>
+                <h5>Practice Questions</h5>
+                <p>
+                    Practice interview questions and
+                    strengthen your technical knowledge.
+                </p>
             </div>
         </div>
+
         <div class="col-md-4">
-            <div class="p-4 rounded-4" style="background: rgba(15, 23, 42, 0.9); border: 1px solid rgba(148, 163, 184, 0.14);">
-                <h5 class="text-white">Progress</h5>
-                <p class="text-muted">Review your scores and learn from each completed session.</p>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h5>Track Progress</h5>
+                <p>
+                    Review your scores and monitor
+                    your interview preparation journey.
+                </p>
             </div>
         </div>
+
         <div class="col-md-4">
-            <div class="p-4 rounded-4" style="background: rgba(15, 23, 42, 0.9); border: 1px solid rgba(148, 163, 184, 0.14);">
-                <h5 class="text-white">AI Insight</h5>
-                <p class="text-muted">Get smarter preparation with structured interview practice.</p>
+            <div class="feature-card">
+                <div class="feature-icon">✦</div>
+                <h5>AI Insights</h5>
+                <p>
+                    Explore structured interview practice
+                    and feedback features.
+                </p>
             </div>
         </div>
+
     </div>
+
+    <div class="hero-footer">
+        Build your confidence. Prepare for your next opportunity.
+    </div>
+
 </div>
+
 {% endblock %}
